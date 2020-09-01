@@ -1,1 +1,2 @@
-alias E='echo hi'
+alias gitconfig='git config --global user.email "andrew@helpnow.pro"&&git config --global user.name "Andrew"'
+    
