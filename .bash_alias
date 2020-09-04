@@ -3,3 +3,4 @@ alias gitconfig='git config --global user.email "andrew@helpnow.pro"&&git config
 alias ls='ls -a'
 alias ssh='ssh -F $BASHPATH.ssh/config'
 alias ea='emacs $BASHPATH.bash_alias && source $BASHPATH.bash_alias'
+alias A='cat $BASHPATH.bash_alias'
