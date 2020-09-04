@@ -28,10 +28,11 @@ shopt -s checkwinsize
 export LANGUAGE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
-
+export EDITOR=/usr/bin/emacs
+export BASHPATH=/home/andrew/mybash/
 
 # load alias
-source /home/andrew/Documents/mybash/.bash_alias
+source $BASHPATH.bash_alias
 
 # If set, the pattern "**" used in a pathname expansion context will
 # match all files and zero or more directories and subdirectories.

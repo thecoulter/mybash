@@ -1,10 +1,5 @@
-# vars
-Bashpath="/home/andrew/Documents/mybash/"
-
-
 
 alias gitconfig='git config --global user.email "andrew@helpnow.pro"&&git config --global user.name "Andrew"'
 alias ls='ls -a'
-alias ssh='ssh -F /home/andrew/Documents/mybash/.ssh/config'
-alias ea='emacs /home/andrew/Documents/mybash/.bash_alias && source /home/andrew/Documents/mybash/.bash_alias'
-    
+alias ssh='ssh -F $BASHPATH.ssh/config'
+alias ea='emacs $BASHPATH.bash_alias && source $BASHPATH.bash_alias'
