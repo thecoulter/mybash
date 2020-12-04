@@ -1,5 +1,6 @@
 
 alias gitconfig='git config --global user.email "andrew@helpnow.pro"&&git config --global user.name "Andrew"'
+alias mydoc='cd ~/doc/; screen -dm mkdocs serve'
 alias ssh='ssh -F $BASHPATH.ssh/config'
 alias ea='emacs $BASHPATH.bash_alias && source $BASHPATH.bash_alias'
 alias emacs='emacs -nw'
@@ -10,14 +11,21 @@ alias vs='vagrant ssh'
 alias A='grep alias $BASHPATH.bash_alias'
 alias ec='emacs $BASHPATH.ssh/config'
 alias C='cat $BASHPATH.ssh/config'
+alias cl='clear'
 
 alias winelol='/opt/wine-lol/bin/winecfg'
 alias lol='WINEPREFIX=~/Games-Wine/LoL WINEARCH=win32 /opt/wine-lol/bin/wine ~/Games-Wine/LoL/drive_c/Riot\ Games/League\ of\ Legends/LeagueClient.exe'
 # SOCKS proxy over SSH
 alias 'socks'='screen -dm ssh -D 1337 -q -C -N'
 
+function confighome() {
+  echo "source ~/mybash/.bashrc" > ~/.bashrc
+  cp ~/mybash/configs/terminator ~/.config/terminator/config
+  cp ~/mybash/configs/.emacs ~/.emacs
+}
+
 # sshuttle proxy
-#e.g. alias 'proxyhome'='proxy user hostdomain:22 192.168.1.0/24'
+#e.g. alias 'proxyhome'='proxy uselr hostdomain:22 192.168.1.0/24'
 function proxy() {
   screen -dm sshuttle -v -r $1@$2 -x $2 ${@:2}; screen -r;
 }
