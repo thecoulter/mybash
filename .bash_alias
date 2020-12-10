@@ -1,7 +1,9 @@
 
 alias gitconfig='git config --global user.email "andrew@helpnow.pro"&&git config --global user.name "Andrew"'
+alias I='sudo apt install'
 alias mydoc='cd ~/doc/; screen -dm mkdocs serve'
 alias ssh='ssh -F $BASHPATH.ssh/config'
+alias scp='scp -F $BASHPATH.ssh/config'
 alias ea='emacs $BASHPATH.bash_alias && source $BASHPATH.bash_alias'
 alias emacs='emacs -nw'
 alias vup='vagrant up'
