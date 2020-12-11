@@ -1,5 +1,8 @@
 # git
 alias gitconfig='git config --global user.email "andrew@helpnow.pro"&&git config --global user.name "Andrew"'
+alias gstat='git status'
+alias gpush='git commit -m '
+alias gadd='git add '
 # apt
 alias I='sudo apt install'
 alias mydoc='cd ~/doc/; screen -dm mkdocs serve'
