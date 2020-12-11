@@ -1,17 +1,22 @@
-
+# git
 alias gitconfig='git config --global user.email "andrew@helpnow.pro"&&git config --global user.name "Andrew"'
+# apt
 alias I='sudo apt install'
 alias mydoc='cd ~/doc/; screen -dm mkdocs serve'
 alias ssh='ssh -F $BASHPATH.ssh/config'
 alias scp='scp -F $BASHPATH.ssh/config'
+# editing
 alias ea='emacs $BASHPATH.bash_alias && source $BASHPATH.bash_alias'
+alias ec='emacs $BASHPATH.ssh/config'
 alias emacs='emacs -nw'
+alias e='emacs -nw'
+# vagrant
 alias vup='vagrant up'
 alias vdup='vagrant destroy -f && vagrant up'
 alias vhalt='vagrant halt'
 alias vs='vagrant ssh'
-alias A='grep alias $BASHPATH.bash_alias'
-alias ec='emacs $BASHPATH.ssh/config'
+# show show alias and config
+alias A='cat $BASHPATH.bash_alias'
 alias C='cat $BASHPATH.ssh/config'
 alias cl='clear'
 
@@ -25,6 +30,13 @@ function confighome() {
   cp ~/mybash/configs/terminator ~/.config/terminator/config
   cp ~/mybash/configs/.emacs ~/.emacs
 }
+
+# function getconfig() {
+
+# }
+  
+
+
 
 # sshuttle proxy
 #e.g. alias 'proxyhome'='proxy uselr hostdomain:22 192.168.1.0/24'

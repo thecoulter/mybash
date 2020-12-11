@@ -29,8 +29,10 @@ if [ ! -z "$STATIC_IP" ]; then
 fi
 
 # Remove CD sources
-cp /etc/apt/sources.list /etc/apt/sources.list.$DATE
-sed -i '/deb cdrom/d' /etc/apt/sources.list
+# cp /etc/apt/sources.list /etc/apt/sources.list.$DATE
+# sed -i '/deb cdrom/d' /etc/apt/sources.list
+
+
 
 # Upgrade software
 apt-get update -y
