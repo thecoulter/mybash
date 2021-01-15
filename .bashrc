@@ -201,8 +201,13 @@ alias sha1='openssl sha1'
 
 # Mine
 BASHPATH="/home/andrew/mybash/"
-source $BASHPATH.bash_alias
+ALTPATH="/root/mybash"
 
+if [ -f "$BASHPATH" ]; then
+  source $BASHPATH.bash_alias
+else
+  source $ALTPATH.bash_alias
+fi
 
 #######################################################
 # SPECIAL FUNCTIONS
