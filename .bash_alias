@@ -3,11 +3,13 @@ alias gitconfig='git config --global user.email "andrew@helpnow.pro"&&git config
 alias gstat='git status'
 alias gpush='git commit -m '
 alias gadd='git add '
+alias glist='git branch -a'
 # apt
 alias I='sudo apt install'
 alias mydoc='cd ~/doc/; screen -dm mkdocs serve'
 alias ssh='ssh -F $BASHPATH.ssh/config'
 alias scp='scp -F $BASHPATH.ssh/config'
+
 # editing
 alias ea='emacs $BASHPATH.bash_alias && source $BASHPATH.bash_alias'
 alias ec='emacs $BASHPATH.ssh/config'
@@ -18,6 +20,7 @@ alias vup='vagrant up'
 alias vdup='vagrant destroy -f && vagrant up'
 alias vhalt='vagrant halt'
 alias vs='vagrant ssh'
+alias vstatus='vagrant status'
 # show show alias and config
 alias A='cat $BASHPATH.bash_alias'
 alias C='cat $BASHPATH.ssh/config'
@@ -38,7 +41,9 @@ function confighome() {
 
 # }
   
-
+function scmd() {
+  echo $(!!)
+}
 
 
 # sshuttle proxy
@@ -48,3 +53,4 @@ function proxy() {
 }
 
 alias proxyhome='proxy andrew 128.192.9.183:22 172.16.0.0/16'
+#alias proxyhome='proxy andrew 128.192.9.183:22 192.168.1.0/24'
