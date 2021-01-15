@@ -1,0 +1,5 @@
+#!/bin/bash
+
+function pullser() {
+  ssh my "git --git-dir=/root/mybash pull 2>&1"
+}
