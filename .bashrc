@@ -5,6 +5,10 @@ iatest=$(expr index "$-" i)
 # SOURCED ALIAS'S AND SCRIPTS BY zachbrowne.me
 #######################################################
 
+# path
+
+
+
 # Source global definitions
 if [ -f /etc/bashrc ]; then
 	 . /etc/bashrc
@@ -113,6 +117,7 @@ alias vi='vim'
 alias svi='sudo vi'
 alias vis='vim "+set si"'
 
+
 # Change directory aliases
 alias home='cd ~'
 alias cd..='cd ..'
@@ -203,7 +208,7 @@ alias sha1='openssl sha1'
 BASHPATH="/home/andrew/mybash/"
 ALTPATH="/root/mybash"
 
-if [ -f "$BASHPATH" ]; then
+if [ -f "$BASHPATH.bash_alias" ]; then
   source $BASHPATH.bash_alias
 else
   source $ALTPATH.bash_alias
