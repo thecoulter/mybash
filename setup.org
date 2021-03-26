@@ -1,52 +1,53 @@
-# git
+* bashrc file on home
+source ~/mybash/.bashrc
+* bashrc file in mybash
+BASHPATH="/home/andrew/mybash/"
+ALTPATH="/root/mybash"
+PATH="$PATH:/home/andrew/mybash/scripts"
+
+if [ -f "$BASHPATH.bash_alias" ]; then
+  source $BASHPATH.bash_alias
+else
+  source $ALTPATH.bash_alias
+fi
+
+* alias
+** git
 alias gitconfig='git config --global user.email "andrew@helpnow.pro"&&git config --global user.name "Andrew"'
 alias gstat='git status'
-alias gm='git branch --merged'
-# git --no-merge
+
 alias gpush='git commit -m '
 alias gadd='git add '
 alias glist='git branch -a'
 
-# misc
+** misc
 alias I='sudo apt install'
 alias mydoc='cd ~/doc/; screen -dm mkdocs serve'
-alias R='sudo exportfs -a && sudo systemctl restart nfs-kernel-server'
-alias glycamstart='cd ~/GLYCAM_Dev_Env/V_2/ && bash ./bin/start.sh'
-alias glycamstop='cd ~/GLYCAM_Dev_Env/V_2/ && bash ./bin/stop.sh'
-alias glycamrestart='cd ~/GLYCAM_Dev_Env/V_2/ && bash ./bin/restart.sh'
 
-# ssh
+** ssh
 alias ssh='ssh -F $BASHPATH.ssh/config'
 alias scp='scp -F $BASHPATH.ssh/config'
-function copy-id-dd() {
-  ssh-copy-id -o ProxyJump=128.192.9.183 $1
-}
+*** ssh config file
 
-
-
-# editing
+** editing
 alias ea='emacs $BASHPATH.bash_alias && source $BASHPATH.bash_alias'
 alias ec='emacs $BASHPATH.ssh/config'
 alias emacs='emacs -nw'
 alias e='emacs -nw'
 alias ee='sudo emacs -nw'
 
-# vagrant
+** vagrant
 alias vup='vagrant up'
 alias vdup='vagrant destroy -f && vagrant up'
 alias vhalt='vagrant halt'
 alias vs='vagrant ssh'
 alias vstatus='vagrant status'
-# show show alias and config
+** show alias and config
 alias A='cat $BASHPATH.bash_alias'
 alias C='cat $BASHPATH.ssh/config'
 alias cl='clear'
-# server
-alias restartnfs='sudo exportfs -a && sudo systemctl restart nfs-kernel-server'
 
-
-# SOCKS proxy over SSH
-alias 'socks'='screen -dm ssh -D 1337 -q -C -N'
+** functions
 
 function confighome() {
   echo "source ~/mybash/.bashrc" > ~/.bashrc
@@ -54,13 +55,9 @@ function confighome() {
   cp ~/mybash/configs/.emacs ~/.emacs
 }
 
-# function getconfig() {
-
-# }
-  
 
 # sshuttle proxy
-#e.g. alias 'proxyhome'='proxy uselr hostdomain:22 192.168.1.0/24'
+
 function proxy() {
   screen -dm sshuttle -v -r $1@$2 -x $2 ${@:2}; screen -r;
 }
@@ -68,4 +65,3 @@ function proxy() {
 alias proxy172='proxy andrew 128.192.9.183:22 172.16.0.0/16'
 alias Proxy192='proxy andrew 128.192.9.183:22 192.168.1.0/24'
 alias romesite='google-chrome http://172.16.0.9:5000/'
-alias webdoc='google-chrome http://127.0.0.1:8000'
