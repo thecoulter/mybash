@@ -9,27 +9,47 @@ alias glist='git branch -a'
 
 # misc
 alias I='sudo apt install'
-alias mydoc='cd ~/doc/; screen -dm mkdocs serve'
+alias mydoc='cd ~/doc/; screen -S mkdocs -dm mkdocs serve; screen -S chrome-doc -dm google-chrome-stable http://127.0.0.1:8000'
 alias R='sudo exportfs -a && sudo systemctl restart nfs-kernel-server'
 alias glycamstart='cd ~/GLYCAM_Dev_Env/V_2/ && bash ./bin/start.sh'
 alias glycamstop='cd ~/GLYCAM_Dev_Env/V_2/ && bash ./bin/stop.sh'
 alias glycamrestart='cd ~/GLYCAM_Dev_Env/V_2/ && bash ./bin/restart.sh'
 
 # ssh
-alias ssh='ssh -F $BASHPATH.ssh/config'
-alias scp='scp -F $BASHPATH.ssh/config'
+alias ssh='ssh -F $BASHPATH/.ssh/config'
+alias wssh='ssh -F $BASHPATH/.ssh/wconfig'
+alias scp='scp -F $BASHPATH/.ssh/config'
 function copy-id-dd() {
-  ssh-copy-id -o ProxyJump=128.192.9.183 $1
+  ssh-copy-id -o ProxyJump=128.192.9.183,wilde $1
+}
+function legacyvnc() {
+
+case $1 in
+    ''|*[!0-9]*) echo "enter the last digit of port number" ; return 1 ;;
+    *) screen -S portforward -dm ssh -v -N root@172.16.0.80 -J andrew@128.192.9.183 -L 590$1:localhost:590$1 ;;
+esac
+sleep 1000
+vncviewer localhost:590$1
+
+
+
+# if [ "$1" == "1" ]
+#   then
+#     screen -S portforward -dm ssh -v -N root@172.16.0.80 -J andrew@128.192.9.183 -L 590$1:localhost:590$1
+#   else
+#     echo "no port number ending entered"
+#   fi
+#  vncviewer localhost:590$1
 }
 
 
-
 # editing
-alias ea='emacs $BASHPATH.bash_alias && source $BASHPATH.bash_alias'
-alias ec='emacs $BASHPATH.ssh/config'
+alias ea='emacs $BASHPATH/.bash_alias && source $BASHPATH/.bash_alias'
+alias ec='emacs $BASHPATH/.ssh/config'
 alias emacs='emacs -nw'
 alias e='emacs -nw'
 alias ee='sudo emacs -nw'
+alias enote='emacs ~/doc/docs/'
 
 # vagrant
 alias vup='vagrant up'
@@ -38,15 +58,22 @@ alias vhalt='vagrant halt'
 alias vs='vagrant ssh'
 alias vstatus='vagrant status'
 # show show alias and config
-alias A='cat $BASHPATH.bash_alias'
-alias C='cat $BASHPATH.ssh/config'
+alias A='cat $BASHPATH/.bash_alias'
+alias C='cat $BASHPATH/.ssh/config'
+alias S='ls $BASHPATH/scripts'
 alias cl='clear'
 # server
 alias restartnfs='sudo exportfs -a && sudo systemctl restart nfs-kernel-server'
 
+# docker
+alias dps='docker container ls'
+function dconnect() {
+  docker exec -it $1 /bin/bash
+}
 
-# SOCKS proxy over SSH
-alias 'socks'='screen -dm ssh -D 1337 -q -C -N'
+# paths
+alias cdglycam='cd ~/Documents/repos/GLYCAM_Dev_Env/V_2'
+
 
 function confighome() {
   echo "source ~/mybash/.bashrc" > ~/.bashrc
@@ -62,10 +89,11 @@ function confighome() {
 # sshuttle proxy
 #e.g. alias 'proxyhome'='proxy uselr hostdomain:22 192.168.1.0/24'
 function proxy() {
-  screen -dm sshuttle -v -r $1@$2 -x $2 ${@:2}; screen -r;
+  screen -S proxy -dm sshuttle -v -r $1@$2 -x $2 ${@:2}; screen -r proxy
 }
 
 alias proxy172='proxy andrew 128.192.9.183:22 172.16.0.0/16'
-alias Proxy192='proxy andrew 128.192.9.183:22 192.168.1.0/24'
+alias proxy192='proxy andrew 128.192.9.183:22 192.168.1.0/24'
+alias proxy181='proxy andrew 128.192.9.183:22 128.192.9.181/32'
+alias proxyvm='sshuttle --ssh-cmd "ssh -F /home/andrew/mybash/.ssh/config" -r file-share 192.168.1.0/24'
 alias romesite='google-chrome http://172.16.0.9:5000/'
-alias webdoc='google-chrome http://127.0.0.1:8000'

@@ -45,7 +45,6 @@ PROMPT_COMMAND='history -a'
 # Allow ctrl-S for history navigation (with ctrl-R)
 # stty -ixon
 
-# Ignore case on auto-completion
 # Note: bind used instead of sticking these in .inputrc
 if [[ $iatest > 0 ]]; then bind "set completion-ignore-case on"; fi
 
@@ -205,14 +204,15 @@ alias logs="sudo find /var/log -type f -exec file {} \; | grep 'text' | cut -d' 
 alias sha1='openssl sha1'
 
 # Mine
-BASHPATH="/home/andrew/mybash/"
+BASHPATH="/home/andrew/mybash"
 ALTPATH="/root/mybash"
 PATH="$PATH:/home/andrew/mybash/scripts"
+PATH="$PATH:/home/andrew/.local/bin" # python pip
 
-if [ -f "$BASHPATH.bash_alias" ]; then
-  source $BASHPATH.bash_alias
+if [ -f "$BASHPATH/.bash_alias" ]; then
+  source $BASHPATH/.bash_alias
 else
-  source $ALTPATH.bash_alias
+  source $ALTPATH/.bash_alias
 fi
 
 #######################################################
