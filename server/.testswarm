@@ -1,0 +1,26 @@
+# Paths
+dev=/website/DOCKER/TEST_SWARM/LiveDev/V_2/
+
+
+# docker
+alias dls='docker service ls'
+alias dnls='docker node ls'
+alias dps='docker container ls'
+
+# dev env
+alias stoptest='cd $testsite/ && bash bin/swarm-stop.sh && cd -'
+alias starttest='cd $testsite/ && bash bin/swarm-start.sh && cd -\
+'
+alias starts='bash bin/swarm-start.sh'
+alias stops='bash bin/swarm-stop.sh'
+
+# docker functions
+function drain() {
+    docker node update --availability drain $1
+}
+function active() {
+    docker node update --availability active $1
+}
+
+
+

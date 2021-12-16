@@ -1,0 +1,22 @@
+# Paths
+pathtra=/website/DOCKER/GLYCAM_Traefik_Proxy/
+dev=/website/DOCKER/GLYCAM/LiveDev/V_2/
+test=/website/DOCKER/GLYCAM/LiveTest/V_2/
+
+
+alias dls='docker service ls'
+alias stoptest='cd $testsite/ && bash bin/swarm-stop.sh && cd -'
+alias starttest='cd $testsite/ && bash bin/swarm-start.sh && cd -\
+'
+alias starts='bash bin/swarm-start.sh'
+alias stops='bash bin/swarm-stop.sh'
+alias dsl='docker service ls'
+alias dnls='docker node ls'
+
+function drain() {
+    docker node update --availability drain $1
+}
+function active() {
+    docker node update --availability active $1
+}
+
