@@ -1,11 +1,9 @@
 #!/bin/bash
 
-SERVER_LIST=./servers.txt
+SERVER_LIST=~/mybash/scripts/servers.txt
 
 while read -u10 REMOTE_SERVER
 do
-
-        ssh -F ~/mybash/.ssh/config $REMOTE_SERVER 'chmod +x sethost.bash'
-#    scp -F ~/mybash/.ssh/config sethost.bash $REMOTE_SERVER:~/
-
+#  ssh root@$REMOTE_SERVER 'reboot'
+   ssh -F ~/mybash/.ssh/config root@$REMOTE_SERVER $1
 done 10< $SERVER_LIST

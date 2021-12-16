@@ -79,12 +79,6 @@ export LESS_TERMCAP_us=$'\E[01;32m'
 # MACHINE SPECIFIC ALIAS'S
 #######################################################
 
-# Alias's for SSH
-# alias SERVERNAME='ssh YOURWEBSITE.com -l USERNAME -p PORTNUMBERHERE'
-
-# Alias's to change the directory
-alias web='cd /var/www/html'
-
 # Alias's to mount ISO files
 # mount -o loop /home/NAMEOFISO.iso /home/ISOMOUNTDIR/
 # umount /home/NAMEOFISO.iso
@@ -205,14 +199,13 @@ alias sha1='openssl sha1'
 
 # Mine
 BASHPATH="/home/andrew/mybash"
-ALTPATH="/root/mybash"
-PATH="$PATH:/home/andrew/mybash/scripts"
-PATH="$PATH:/home/andrew/.local/bin" # python pip
+PATH="$PATH:$BASHPATH/scripts"
+PATH="$PATH:$HOME/.local/bin" # python pip
 
 if [ -f "$BASHPATH/.bash_alias" ]; then
   source $BASHPATH/.bash_alias
 else
-  source $ALTPATH/.bash_alias
+  source $SERVER
 fi
 
 #######################################################

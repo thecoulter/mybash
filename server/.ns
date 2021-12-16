@@ -1,3 +1,9 @@
+#!/bin/bash
+filename='.ns'
+
+alias ea="emacs $BASHPATH/server/$filename && source $BASHPATH/server/$filename"
+
+
 alias ew='emacs /etc/bind/zones/db.woods.ccrc && systemctl restar\
 t bind9'
 alias e1='emacs /etc/bind/zones/db.172.16 && systemctl restart bi\

@@ -1,24 +1,45 @@
+# paths
+dev=/home/andrew/Documents/repos/GLYCAM_Dev_Env/V_2/
+devcopy=/home/andrew/Documents/repos/copy/GLYCAM_Dev_Env/V_2/
+devstatic=Django/glycam-django/glycamweb/static/
+
 # git
-alias gitconfig='git config --global user.email "andrew@helpnow.pro"&&git config --global user.name "Andrew"'
+alias gitconfig='git config --global user.email "andrew@coulter.info"&&git config --global user.name "Andrew"'
 alias gstat='git status'
 alias gm='git branch --merged'
 # git --no-merge
 alias gpush='git commit -m '
 alias gadd='git add '
 alias glist='git branch -a'
+alias cloneglycam='git clone andrew@128.192.9.183:/offsitesync/WEBSITE/REPOS/GLYCAM_Dev_Env.git'
+alias guntracked='git ls-files --others --exclude-standard'
+
 
 # misc
 alias I='sudo apt install'
 alias mydoc='cd ~/doc/; screen -S mkdocs -dm mkdocs serve; screen -S chrome-doc -dm google-chrome-stable http://127.0.0.1:8000'
 alias R='sudo exportfs -a && sudo systemctl restart nfs-kernel-server'
-alias glycamstart='cd ~/GLYCAM_Dev_Env/V_2/ && bash ./bin/start.sh'
-alias glycamstop='cd ~/GLYCAM_Dev_Env/V_2/ && bash ./bin/stop.sh'
-alias glycamrestart='cd ~/GLYCAM_Dev_Env/V_2/ && bash ./bin/restart.sh'
+alias glycamstart='cd $glycam && bash ./bin/start.sh'
+alias glycamstop='cd $glycam && bash ./bin/stop.sh'
+alias glycamrestart='cd $glycam && bash ./bin/restart.sh'
+function ggg() { google-chrome-stable $1 ; }
+alias glycamlog="find * -type f -name "*.log" -print | xargs cat > megalog.log"
+
+
+# dev env
+function devprep {
+	 echo "0" > Django/glycam-django/glycamweb/FIXTURE_WARNINGS_LEFT
+	 sed -i 's/bash \.\/bin\/git-setup.sh/# bash \.\/bin\/git-setup.sh/' bin/initialize.sh
+	 echo "ready to init"
+}
+
+
 
 # ssh
 alias ssh='ssh -F $BASHPATH/.ssh/config'
 alias wssh='ssh -F $BASHPATH/.ssh/wconfig'
 alias scp='scp -F $BASHPATH/.ssh/config'
+alias legacy='ssh -oHostKeyAlgorithms=+ssh-dss glycamvm'
 function copy-id-dd() {
   ssh-copy-id -o ProxyJump=128.192.9.183,wilde $1
 }
@@ -28,8 +49,8 @@ case $1 in
     ''|*[!0-9]*) echo "enter the last digit of port number" ; return 1 ;;
     *) screen -S portforward -dm ssh -v -N root@172.16.0.80 -J andrew@128.192.9.183 -L 590$1:localhost:590$1 ;;
 esac
-sleep 1000
-vncviewer localhost:590$1
+# sleep 1000
+# vncviewer localhost:590$1
 
 
 
@@ -67,9 +88,14 @@ alias restartnfs='sudo exportfs -a && sudo systemctl restart nfs-kernel-server'
 
 # docker
 alias dps='docker container ls'
+alias dprune='docker system prune -af'
+alias dshow='docker image ls --all'
+alias dclear='bash bin/stop.sh && docker system prune -af && cd ../../'
 function dconnect() {
   docker exec -it $1 /bin/bash
 }
+
+
 
 # paths
 alias cdglycam='cd ~/Documents/repos/GLYCAM_Dev_Env/V_2'
@@ -97,3 +123,15 @@ alias proxy192='proxy andrew 128.192.9.183:22 192.168.1.0/24'
 alias proxy181='proxy andrew 128.192.9.183:22 128.192.9.181/32'
 alias proxyvm='sshuttle --ssh-cmd "ssh -F /home/andrew/mybash/.ssh/config" -r file-share 192.168.1.0/24'
 alias romesite='google-chrome http://172.16.0.9:5000/'
+
+# info
+
+alias perms=' echo "
+0 = ---
+1 = --x
+2 = -w-
+3 = -wx
+4 = r-
+5 = r-x
+6 = rw-
+7 = rwx" '

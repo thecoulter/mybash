@@ -1,3 +1,8 @@
+#!/bin/bash
+filename='.testswarm'
+
+alias ea="emacs $BASHPATH/server/$filename && source $BASHPATH/server/$filename"
+
 # Paths
 dev=/website/DOCKER/TEST_SWARM/LiveDev/V_2/
 

@@ -1,3 +1,8 @@
+#!/bin/bash
+filename='.swarm'
+
+alias ea="emacs $BASHPATH/server/$filename && source $BASHPATH/server/$filename"
+
 # Paths
 pathtra=/website/DOCKER/GLYCAM_Traefik_Proxy/
 dev=/website/DOCKER/GLYCAM/LiveDev/V_2/
