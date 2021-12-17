@@ -700,3 +700,4 @@ PROMPT_COMMAND='__setprompt'
 
 
 
+alias W='su - webdev'
