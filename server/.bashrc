@@ -1,22 +1,23 @@
 #!/bin/bash
 
-
 # Mine
-BASHPATH=$(type -p setbash.bash)
-pattern='/scripts/setbash.bash'
-BASHPATH=${BASHPATH/$pattern/}
+BASHPATH="/dotfiles/mybash"
 PATH="$PATH:$BASHPATH/scripts"
 
 alias emacs='emacs -nw'
+alias gitconfig="git config --global user.email "andrew@coulter.info"&&git config --global user.name "Andrew""
+alias gstat='git status'
+alias gm='git branch --merged'
+alias gpush='git commit -m '
+alias gadd='git add '
+alias glist='git branch -a'
 
 
-
-iatest=$(expr index "$-" i)
 
 #######################################################
 # SOURCED ALIAS'S AND SCRIPTS BY zachbrowne.me
 #######################################################
-
+iatest=$(expr index "$-" i)
 # path
 
 
