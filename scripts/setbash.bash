@@ -12,6 +12,7 @@ ls -a $BASHPATH/server
 
 read bashchoice
 
-echo "source $BASHPATH/server/.bashrc"
-echo "source $BASHPATH/server/$bashchoice"
-
+cp ~/.bashrc ~/.oldbashrc
+echo "source $BASHPATH/server/.bashrc" > ~/.bashrc
+echo "source $BASHPATH/server/$bashchoice" >> ~/.bashrc
+source ~/.bashrc
