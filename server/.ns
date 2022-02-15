@@ -11,6 +11,7 @@ nd9'
 alias rbind='systemctl restart bind9'
 alias eboth='emacs /etc/bind/zones/db.172.16 /etc/bind/zones/db.w\
 oods.ccrc && systemctl restart bind9'
+alias H='echo "addname [name] [last 2 of ip], addname test 3.100"'
 
 
 function addname() {

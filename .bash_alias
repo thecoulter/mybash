@@ -11,7 +11,7 @@ alias gm='git branch --merged'
 alias gpush='git commit -m '
 alias gadd='git add '
 alias glist='git branch -a'
-alias cloneglycam='git clone andrew@128.192.9.183:/offsitesync/WEBSITE/REPOS/GLYCAM_Dev_Env.git'
+alias cloneglycam='git clone andrew@frost:/offsitesync/WEBSITE/REPOS/GLYCAM_Dev_Env.git'
 alias guntracked='git ls-files --others --exclude-standard'
 
 
@@ -39,6 +39,7 @@ function devprep {
 alias ssh='ssh -F $BASHPATH/.ssh/config'
 alias wssh='ssh -F $BASHPATH/.ssh/wconfig'
 alias scp='scp -F $BASHPATH/.ssh/config'
+alias sshcopy='ssh-copy-id -F $BASHPATH/.ssh/config'
 alias legacy='ssh -oHostKeyAlgorithms=+ssh-dss glycamvm'
 function copy-id-dd() {
   ssh-copy-id -o ProxyJump=128.192.9.183,wilde $1
