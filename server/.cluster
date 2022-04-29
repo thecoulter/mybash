@@ -1,0 +1,108 @@
+# .bashrc
+
+# alias
+
+function setusr(){
+   if [ $1 ]; then
+       mkdir /scratch1/$1
+       cp /home/bashfiles/.bashrc /scratch1/$1
+       cp /home/bashfiles/.bash_profile /scratch1/$1
+       cd /home/
+       ln -s /scratch1/$1 $1
+       chown $1:users -R /scratch1/$1
+   else
+       echo "need to put username as parameter for user test it would be setusr test"
+   fi
+}
+
+
+# environment                                                                                                 
+export PS1='[\u@\h \W]$ ' # Set the command prompt to host and working dir                                    
+export HOST=`uname -n`
+export EDITOR=vim
+export MACHTYPE=x86_64
+export WEEKLYBLD=/cluster/bin/build/scripts
+export JAVA_HOME=/usr/java/default
+export _JAVA_OPTIONS=-Xmx2048m
+export MYSQLLIBS="/usr/lib64/mysql/libmysqlclient.a -lz"
+export MYSQLINC=/usr/include/mysql
+export HGCGI=/usr/local/apache/cgi-bin
+export CLASSPATH=.:/usr/share/java:/usr/java/default/jre/lib/rt.jar:/usr/java/default/jre/lib:/usr/share/java\
+/httpunit.jar:/cluster/bin/java/jtidy.jar:/usr/share/java/rhino.jar:/cluster/bin/java/mysql-connector-java-3.\
+0.16-ga-bin.jar
+export PATH=/cluster/software/bin:/hive/groups/qa/bin/x86_64:/bin:/usr/bin:/cluster/bin/$MACHTYPE:/usr/local/\
+bin:/usr/X11R6/bin:/cluster/bin/scripts:$HOME/bin/$MACHTYPE:$HOME/bin/
+
+
+if [ "$PS1" -a -f /var/spool/cmd/state ]; then
+  STATE=`cat /var/spool/cmd/state`
+  STATEMSG=
+  case $STATE in
+    INIT)
+      STATEMSG="initializing cluster management daemon"
+    ;;
+    SLAVE)
+      STATEMSG="running in slave mode"
+    ;;
+    FENCING)
+      STATEMSG="negotiating active/passive mode"
+    ;;
+    ACTIVE)
+      STATEMSG="running in active master mode"
+    ;;
+    PASSIVE)
+      STATEMSG="running in passive master mode (a.k.a. \"failover mode\")"
+    ;;
+    BECOMEACTIVE)
+      STATEMSG="switching to active master mode"
+    ;;
+    BECOMEPASSIVE)
+      STATEMSG="switching to passive master mode"
+    ;;
+    UNABLETOBECOMEACTIVE)
+      STATEMSG="unable to become active without human intervention"
+    ;;
+    NOTBECOMINGACTIVE)
+      STATEMSG="Not becoming active, the other master stopped gracefully or automatic failover has been disabled"
+    ;;
+    ERROR)
+      STATEMSG="failed to switch to active/passive mode"
+    ;;
+    *)
+      STATEMSG="unknown"
+    ;;
+  esac
+
+  echo
+  echo Node Status: $STATEMSG
+  echo
+  echo -------------------------------------------------------------------------------
+fi
+
+if [ "$PS1" -a -e /cm/node-installer ]; then
+  if [ -x ~/.nag.sh ]; then
+    ~/.nag.sh
+  fi
+  if [ -x /cm/local/apps/cmd/scripts/nag_license.sh ]; then
+    /cm/local/apps/cmd/scripts/nag_license.sh
+  fi
+fi
+
+# User specific aliases and functions
+
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
+alias vi='vim'
+
+export AMBERHOME=/cm/shared/apps/amber20/
+export PATH=$PATH:$AMBERHOME/bin/
+
+module add shared cmd cluster-tools
+
+module load gcc
+module load slurm
+module load cuda11.2
+module load openmpi
+module load amber
+module load fftw2
