@@ -1,4 +1,4 @@
-# paths
+f# paths
 dev=/home/andrew/Documents/repos/GLYCAM_Dev_Env/V_2/
 devcopy=/home/andrew/Documents/repos/copy/GLYCAM_Dev_Env/V_2/
 devstatic=Django/glycam-django/glycamweb/static/
@@ -11,7 +11,7 @@ alias gm='git branch --merged'
 alias gpush='git commit -m '
 alias gadd='git add '
 alias glist='git branch -a'
-alias cloneglycam='git clone andrew@frost:/offsitesync/WEBSITE/REPOS/GLYCAM_Dev_Env.git'
+alias cloneglycam='git clone -b web-test webdev@128.192.9.183:/offsitesync/WEBSITE/REPOS/GLYCAM_Dev_Env.git'
 alias guntracked='git ls-files --others --exclude-standard'
 
 
@@ -24,12 +24,12 @@ alias glycamstop='cd $glycam && bash ./bin/stop.sh'
 alias glycamrestart='cd $glycam && bash ./bin/restart.sh'
 function ggg() { google-chrome-stable $1 ; }
 alias glycamlog="find * -type f -name "*.log" -print | xargs cat > megalog.log"
-
+alias hostname='cat /etc/hostname'
 
 # dev env
 function devprep {
 	 echo "0" > Django/glycam-django/glycamweb/FIXTURE_WARNINGS_LEFT
-	 sed -i 's/bash \.\/bin\/git-setup.sh/# bash \.\/bin\/git-setup.sh/' bin/initialize.sh
+#	 sed -i 's/bash \.\/bin\/git-setup.sh/# bash \.\/bin\/git-setup.sh/' bin/initialize.sh
 	 echo "ready to init"
 }
 
@@ -41,6 +41,7 @@ alias wssh='ssh -F $BASHPATH/.ssh/wconfig'
 alias scp='scp -F $BASHPATH/.ssh/config'
 alias sshcopy='ssh-copy-id -F $BASHPATH/.ssh/config'
 alias legacy='ssh -oHostKeyAlgorithms=+ssh-dss glycamvm'
+alias V='vncviewer localhost:5901'
 function copy-id-dd() {
   ssh-copy-id -o ProxyJump=128.192.9.183,wilde $1
 }
@@ -50,8 +51,15 @@ case $1 in
     ''|*[!0-9]*) echo "enter the last digit of port number" ; return 1 ;;
     *) screen -S portforward -dm ssh -v -N root@172.16.0.80 -J andrew@128.192.9.183 -L 590$1:localhost:590$1 ;;
 esac
-# sleep 1000
-# vncviewer localhost:590$1
+}
+
+function frostvnc() {
+
+case $1 in
+    ''|*[!0-9]*) echo "enter the last digit of port number" ; return 1 ;;
+    *) screen -S portforward -dm ssh -v -N root@172.16.0.51 -J andrew@128.192.9.183 -L 590$1:localhost:590$1 ;;
+esac
+}
 
 
 
@@ -62,7 +70,7 @@ esac
 #     echo "no port number ending entered"
 #   fi
 #  vncviewer localhost:590$1
-}
+
 
 
 # editing
@@ -88,8 +96,10 @@ alias cl='clear'
 alias restartnfs='sudo exportfs -a && sudo systemctl restart nfs-kernel-server'
 
 # docker
+alias ddown='docker-compose down'
+alias dup='docker-compose up -d'
 alias dps='docker container ls'
-alias dprune='docker system prune -af'
+alias dprune='docker system prune --volumes && docker system prune -af'
 alias dshow='docker image ls --all'
 alias dclear='bash bin/stop.sh && docker system prune -af && cd ../../'
 function dconnect() {
