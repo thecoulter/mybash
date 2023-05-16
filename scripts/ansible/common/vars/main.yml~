@@ -1,0 +1,2 @@
+ubuntu_version: "{{ ansible_distribution_release }}"
+tailscale_authkey: "{{ lookup('aug10.key', /home/andrew/doc/ansible_keys/aug10.key) }}"

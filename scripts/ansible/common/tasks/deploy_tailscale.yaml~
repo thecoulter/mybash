@@ -1,0 +1,30 @@
+---
+- name: Install Tailscale and start service
+  hosts: all
+  become: yes
+
+  vars:
+    ubuntu_version: "{{ ansible_distribution_release }}"
+
+  tasks:
+    - name: Add Tailscale APT repository key
+      apt_key:
+        url: "https://pkgs.tailscale.com/stable/ubuntu/{{ ubuntu_version }}.noarmor.gpg"
+        state: present
+
+    - name: Add Tailscale APT repository
+      apt_repository:
+        repo: "deb https://pkgs.tailscale.com/stable/ubuntu {{ ubuntu_version }} main"
+        state: present
+
+    - name: Install Tailscale
+      apt:
+        name: tailscale
+        state: present
+
+    - name: Start and enable Tailscale service
+      systemd:
+        name: tailscaled
+        state: started
+        enabled: yes
+      register: tailscale_output

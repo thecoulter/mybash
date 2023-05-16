@@ -1,0 +1,4 @@
+virtualmachines:
+  hosts:
+    sendmail:
+      ansible_host: sendmail

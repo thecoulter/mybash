@@ -1,0 +1,4 @@
+- name: Servers
+  hosts: all
+  roles:
+    - role: common

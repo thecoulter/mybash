@@ -1,0 +1,58 @@
+---
+- name: Install Tailscale and start service
+  hosts: all
+  become: yes
+
+  vars:
+    ubuntu_version: "{{ ansible_distribution_release }}"
+    tailscale_authkey: tskey-auth-kUnUVE1CNTRL-CC5vv2EUwCibxkssVZ9eCihS5PnZUcUH
+  tasks:
+    - name: Add Tailscale APT repository key
+      apt_key:
+        url: "https://pkgs.tailscale.com/stable/ubuntu/{{ ubuntu_version }}.noarmor.gpg"
+        state: present
+
+    - name: Add Tailscale APT repository
+      apt_repository:
+        repo: "deb https://pkgs.tailscale.com/stable/ubuntu {{ ubuntu_version }} main"
+        state: present
+
+    - name: Install Tailscale
+      apt:
+        name: tailscale
+        state: present
+
+    - name: Start and enable Tailscale service
+      systemd:
+        name: tailscaled
+        state: started
+        enabled: yes
+      register: tailscale_output
+
+    - name: Install | Check if Tailscale is connected
+      ansible.builtin.command: tailscale status
+      changed_when: false
+      register: tailscale_status
+      failed_when:
+        - tailscale_status.rc != 0
+        - "'Logged out.' not in tailscale_status.stdout"
+        - "'not logged in' not in tailscale_status.stdout"
+
+
+    - name: Install | Bring Tailscale Up
+      become: true
+      ansible.builtin.command: "tailscale up --authkey=tskey-auth-kUnUVE1CNTRL-CC5vv2EUwCibxkssVZ9eCihS5PnZUcUH"
+  # Since the auth key is included in this task's output, we do not want to log output
+#      no_log: "{{ not (insecurely_log_authkey | bool) }}"
+      register: tailscale_start
+  # If a failure occurred due to state changes, we still want to log a redacted version of the error if "no_log" is true
+      # ignore_errors: true
+      # changed_when: tailscale_start.rc != 0
+      # when: >
+      #   not tailscale_up_skip | bool
+      #   and (('Logged out.' in tailscale_status.stdout
+      #   and 'not logged in' in tailscale_status.stdout)
+      #   or state_file is changed)
+      # notify: Confirm Tailscale is Connected
+      async: 60
+      poll: 5
