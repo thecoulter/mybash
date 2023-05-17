@@ -1,4 +1,4 @@
-f# paths
+# paths
 dev=/home/andrew/Documents/repos/GLYCAM_Dev_Env/V_2/
 devcopy=/home/andrew/Documents/repos/copy/GLYCAM_Dev_Env/V_2/
 devstatic=Django/glycam-django/glycamweb/static/
@@ -8,12 +8,10 @@ alias gitconfig='git config --global user.email "andrew@coulter.info"&&git confi
 alias gstat='git status'
 alias gm='git branch --merged'
 # git --no-merge
-alias gpush='git commit -m '
-alias gadd='git add '
+alias gpush='git add . && git commit -m "auto" && git push'
 alias glist='git branch -a'
 alias cloneglycam='git clone -b web-test webdev@128.192.9.183:/offsitesync/WEBSITE/REPOS/GLYCAM_Dev_Env.git'
 alias guntracked='git ls-files --others --exclude-standard'
-
 
 # misc
 alias I='sudo apt install'
@@ -27,23 +25,26 @@ alias glycamlog="find * -type f -name "*.log" -print | xargs cat > megalog.log"
 alias hostname='cat /etc/hostname'
 
 # dev env
+## paths for dev env
+alias cdglycam='cd ~/Documents/repos/GLYCAM_Dev_Env/V_2'
+
 function devprep {
 	 echo "0" > Django/glycam-django/glycamweb/FIXTURE_WARNINGS_LEFT
 #	 sed -i 's/bash \.\/bin\/git-setup.sh/# bash \.\/bin\/git-setup.sh/' bin/initialize.sh
 	 echo "ready to init"
 }
 
+alias DS='devprep&&./Start-All-DevEnv.bash -j 17 -c default -s git'
 
 
 # ssh
 alias ssh='ssh -F $BASHPATH/.ssh/config'
-alias wssh='ssh -F $BASHPATH/.ssh/wconfig'
 alias scp='scp -F $BASHPATH/.ssh/config'
 alias sshcopy='ssh-copy-id -F $BASHPATH/.ssh/config'
 alias legacy='ssh -oHostKeyAlgorithms=+ssh-dss glycamvm'
 alias V='vncviewer localhost:5901'
 function copy-id-dd() {
-  ssh-copy-id -o ProxyJump=128.192.9.183,wilde $1
+  ssh-copy-id -o ProxyJump=128.192.9.183 $1
 }
 function legacyvnc() {
 
@@ -96,10 +97,8 @@ alias cl='clear'
 alias restartnfs='sudo exportfs -a && sudo systemctl restart nfs-kernel-server'
 
 # docker
-alias ddown='docker-compose down'
-alias dup='docker-compose up -d'
 alias dps='docker container ls'
-alias dprune='docker system prune --volumes && docker system prune -af'
+alias dprune='docker system prune --volumes && docker system prune -af && sudo rm -f $dev/Django/glycam-django/glycamweb/DBS_CREATED ; sudo rm -rf $dev/Django/fixture-db/mysql/* ; sudo rm -rf $dev/Django/user-db/mysql/*'
 alias dshow='docker image ls --all'
 alias dclear='bash bin/stop.sh && docker system prune -af && cd ../../'
 function dconnect() {
@@ -108,8 +107,6 @@ function dconnect() {
 
 
 
-# paths
-alias cdglycam='cd ~/Documents/repos/GLYCAM_Dev_Env/V_2'
 
 
 function confighome() {
@@ -133,6 +130,8 @@ alias proxy172='proxy andrew 128.192.9.183:22 172.16.0.0/16'
 alias proxy192='proxy andrew 128.192.9.183:22 192.168.1.0/24'
 alias proxy181='proxy andrew 128.192.9.183:22 128.192.9.181/32'
 alias proxyvm='sshuttle --ssh-cmd "ssh -F /home/andrew/mybash/.ssh/config" -r file-share 192.168.1.0/24'
+alias proxyphp='sshuttle --ssh-cmd "ssh -F /home/andrew/mybash/.ssh/config" -r apache-trans 172.16.0.0/16'
+alias proxygray='sshuttle --ssh-cmd "ssh -F /home/andrew/mybash/.ssh/config" -r graysong 192.0.0.0/8'
 alias romesite='google-chrome http://172.16.0.9:5000/'
 
 # info
